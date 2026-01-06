@@ -1,14 +1,13 @@
 FROM tomcat:9.0-jdk21
 
 # Hapus aplikasi default
-RUN rm -rf /usr/local/tomcat/webapps/ROOT
+RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Copy & extract WAR manual
-COPY dist/AplikasiGajihKaryawan.war /tmp/app.war
-RUN mkdir -p /usr/local/tomcat/webapps/ROOT && \
-    cd /usr/local/tomcat/webapps/ROOT && \
-    jar -xf /tmp/app.war && \
-    rm /tmp/app.war
+# Copy WAR (Tomcat auto-deploy)
+COPY dist/AplikasiGajihKaryawan.war /usr/local/tomcat/webapps/ROOT.war
+
+# Setup database & import SQL langsung saat build
+RUN apt-get update && apt-get install -y mysql-client
 
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
