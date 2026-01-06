@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Laporan Gaji Karyawan - JasperReports 6.4.0 - UUID VALID -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports
+              http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="LaporanGaji" 
+              pageWidth="842" 
+              pageHeight="595" 
+              orientation="Landscape"
+              columnWidth="802" 
+              leftMargin="20" 
+              rightMargin="20" 
+              topMargin="20" 
+              bottomMargin="20"
+              uuid="a1b2c3d4-e5f6-7890-abcd-ef1234567890">
+    
+    <property name="ireport.zoom" value="1.0"/>
+    <property name="ireport.x" value="0"/>
+    <property name="ireport.y" value="0"/>
+    
+    <queryString>
+        <![CDATA[SELECT g.kodeGaji, 
+                        g.tanggal, 
+                        k.nama AS namaKaryawan, 
+                        p.namaPekerjaan, 
+                        g.jumlahTugas, 
+                        g.gajiPokok, 
+                        g.bonus, 
+                        g.totalGaji
+                 FROM tbgaji g 
+                 LEFT JOIN tbkaryawan k ON g.ktp = k.ktp 
+                 LEFT JOIN tbpekerjaan p ON g.kodePekerjaan = p.kodePekerjaan 
+                 ORDER BY g.tanggal DESC]]>
+    </queryString>
+    
+    <field name="kodeGaji" class="java.lang.String"/>
+    <field name="tanggal" class="java.lang.String"/>
+    <field name="namaKaryawan" class="java.lang.String"/>
+    <field name="namaPekerjaan" class="java.lang.String"/>
+    <field name="jumlahTugas" class="java.lang.Integer"/>
+    <field name="gajiPokok" class="java.lang.Double"/>
+    <field name="bonus" class="java.lang.Double"/>
+    <field name="totalGaji" class="java.lang.Double"/>
+    
+    <variable name="totalGajiPokok" class="java.lang.Double" calculation="Sum">
+        <variableExpression><![CDATA[$F{gajiPokok}]]></variableExpression>
+    </variable>
+    
+    <variable name="totalBonus" class="java.lang.Double" calculation="Sum">
+        <variableExpression><![CDATA[$F{bonus}]]></variableExpression>
+    </variable>
+    
+    <variable name="grandTotal" class="java.lang.Double" calculation="Sum">
+        <variableExpression><![CDATA[$F{totalGaji}]]></variableExpression>
+    </variable>
+    
+    <title>
+        <band height="79" splitType="Stretch">
+            <staticText>
+                <reportElement uuid="11111111-2222-3333-4444-555555555501" x="0" y="0" width="802" height="30"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="18" isBold="true"/>
+                </textElement>
+                <text><![CDATA[LAPORAN GAJI KARYAWAN]]></text>
+            </staticText>
+            <staticText>
+                <reportElement uuid="11111111-2222-3333-4444-555555555502" x="0" y="35" width="802" height="20"/>
+                <textElement textAlignment="Center">
+                    <font size="12"/>
+                </textElement>
+                <text><![CDATA[Aplikasi Gaji Karyawan]]></text>
+            </staticText>
+            <line>
+                <reportElement uuid="11111111-2222-3333-4444-555555555503" x="0" y="60" width="802" height="1"/>
+            </line>
+        </band>
+    </title>
+    
+    <columnHeader>
+        <band height="30" splitType="Stretch">
+            <staticText>
+                <reportElement uuid="22222222-3333-4444-5555-666666666601" mode="Opaque" x="0" y="0" width="80" height="30" backcolor="#34495E" forecolor="#FFFFFF"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Kode Gaji]]></text>
+            </staticText>
+            <staticText>
+                <reportElement uuid="22222222-3333-4444-5555-666666666602" mode="Opaque" x="80" y="0" width="80" height="30" backcolor="#34495E" forecolor="#FFFFFF"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Tanggal]]></text>
+            </staticText>
+            <staticText>
+                <reportElement uuid="22222222-3333-4444-5555-666666666603" mode="Opaque" x="160" y="0" width="140" height="30" backcolor="#34495E" forecolor="#FFFFFF"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Karyawan]]></text>
+            </staticText>
+            <staticText>
+                <reportElement uuid="22222222-3333-4444-5555-666666666604" mode="Opaque" x="300" y="0" width="120" height="30" backcolor="#34495E" forecolor="#FFFFFF"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Pekerjaan]]></text>
+            </staticText>
+            <staticText>
+                <reportElement uuid="22222222-3333-4444-5555-666666666605" mode="Opaque" x="420" y="0" width="70" height="30" backcolor="#34495E" forecolor="#FFFFFF"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Jml Tugas]]></text>
+            </staticText>
+            <staticText>
+                <reportElement uuid="22222222-3333-4444-5555-666666666606" mode="Opaque" x="490" y="0" width="100" height="30" backcolor="#34495E" forecolor="#FFFFFF"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Gaji Pokok]]></text>
+            </staticText>
+            <staticText>
+                <reportElement uuid="22222222-3333-4444-5555-666666666607" mode="Opaque" x="590" y="0" width="100" height="30" backcolor="#34495E" forecolor="#FFFFFF"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Bonus]]></text>
+            </staticText>
+            <staticText>
+                <reportElement uuid="22222222-3333-4444-5555-666666666608" mode="Opaque" x="690" y="0" width="112" height="30" backcolor="#34495E" forecolor="#FFFFFF"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Total Gaji]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    
+    <detail>
+        <band height="25" splitType="Stretch">
+            <textField>
+                <reportElement uuid="33333333-4444-5555-6666-777777777701" x="0" y="0" width="80" height="25"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{kodeGaji}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement uuid="33333333-4444-5555-6666-777777777702" x="80" y="0" width="80" height="25"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{tanggal}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement uuid="33333333-4444-5555-6666-777777777703" x="160" y="0" width="140" height="25"/>
+                <box leftPadding="5"><pen lineWidth="0.5"/></box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{namaKaryawan}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement uuid="33333333-4444-5555-6666-777777777704" x="300" y="0" width="120" height="25"/>
+                <box leftPadding="5"><pen lineWidth="0.5"/></box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{namaPekerjaan}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement uuid="33333333-4444-5555-6666-777777777705" x="420" y="0" width="70" height="25"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{jumlahTugas}]]></textFieldExpression>
+            </textField>
+            <textField pattern="#,##0">
+                <reportElement uuid="33333333-4444-5555-6666-777777777706" x="490" y="0" width="100" height="25"/>
+                <box rightPadding="5"><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Rp " + new java.text.DecimalFormat("#,##0").format($F{gajiPokok})]]></textFieldExpression>
+            </textField>
+            <textField pattern="#,##0">
+                <reportElement uuid="33333333-4444-5555-6666-777777777707" x="590" y="0" width="100" height="25"/>
+                <box rightPadding="5"><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Rp " + new java.text.DecimalFormat("#,##0").format($F{bonus})]]></textFieldExpression>
+            </textField>
+            <textField pattern="#,##0">
+                <reportElement uuid="33333333-4444-5555-6666-777777777708" x="690" y="0" width="112" height="25"/>
+                <box rightPadding="5"><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Rp " + new java.text.DecimalFormat("#,##0").format($F{totalGaji})]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+    
+    <summary>
+        <band height="30" splitType="Stretch">
+            <staticText>
+                <reportElement uuid="44444444-5555-6666-7777-888888888801" mode="Opaque" x="0" y="0" width="490" height="30" backcolor="#ECF0F1"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[TOTAL:  ]]></text>
+            </staticText>
+            <textField pattern="#,##0">
+                <reportElement uuid="44444444-5555-6666-7777-888888888802" mode="Opaque" x="490" y="0" width="100" height="30" backcolor="#ECF0F1"/>
+                <box rightPadding="5"><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Rp " + new java.text.DecimalFormat("#,##0").format($V{totalGajiPokok})]]></textFieldExpression>
+            </textField>
+            <textField pattern="#,##0">
+                <reportElement uuid="44444444-5555-6666-7777-888888888803" mode="Opaque" x="590" y="0" width="100" height="30" backcolor="#ECF0F1"/>
+                <box rightPadding="5"><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Rp " + new java.text.DecimalFormat("#,##0").format($V{totalBonus})]]></textFieldExpression>
+            </textField>
+            <textField pattern="#,##0">
+                <reportElement uuid="44444444-5555-6666-7777-888888888804" mode="Opaque" x="690" y="0" width="112" height="30" backcolor="#ECF0F1"/>
+                <box rightPadding="5"><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Rp " + new java.text.DecimalFormat("#,##0").format($V{grandTotal})]]></textFieldExpression>
+            </textField>
+        </band>
+    </summary>
+    
+</jasperReport>
