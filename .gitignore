@@ -1,0 +1,24 @@
+# NetBeans
+nbproject/private/
+build/
+dist/
+nbbuild/
+nbdist/
+.nb-gradle/
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# IDE
+.idea/
+*.iml
+*.project
+*.classpath
+.settings/
+
+# OS
+Thumbs.db
+.DS_Store
